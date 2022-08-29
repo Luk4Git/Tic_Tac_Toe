@@ -1,8 +1,7 @@
 """
 projekt_1.py: první projekt do Engeto Online Python Akademie
 
-author: Lukáš Matela
-email: lukas.matela@innogy.cz, Lukas.Matela@gmail.com
+
 discord: Lukáš M., Lukáš#8477
 """
 
