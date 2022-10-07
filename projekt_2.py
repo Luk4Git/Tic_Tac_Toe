@@ -1,8 +1,9 @@
 """
 projekt_1.py: první projekt do Engeto Online Python Akademie
 
-
-discord: Lukáš M., Lukáš#8477
+author: Lukáš Matela
+email: lukas.matela@innogy.cz, Lukas.Matela@gmail.com
+discord: Lukáš M., #8515
 """
 
 # Proměnné označující hráče
@@ -53,13 +54,13 @@ def display_board():
 
 
 # Spoustí hru po jednotlivých krocích:
-def play():
+def main():
     introduction()
     display_board()
     while game_on:
         turn()
-        change_player()
         check_end_game()
+        change_player()
 
 
 # Provedení tahu: vyzve hráče, aby zvolil pozici pro tah, rozsah 1 až 9, pozice musí být volná:
@@ -69,7 +70,7 @@ def turn():
     while position not in ("1", "2", "3", "4", "5", "6", "7", "8", "9"):
         position = input("Choose place between 1 and 9: ")
 
-    while board[position] != " ":
+    if board[position] != " ":
         position = input("This space isn't free, chose another place: ")
 
     board[position] = actual_player
@@ -89,81 +90,40 @@ def change_player():
 def check_end_game():
     global winner
     global game_on
-    # řádky X
-    if board["1"] == board["2"] == board["3"] == "X" != " ":
-        print("Congratulations, the player X WON!")
+
+    #vítěz řádku
+    if board["1"] == board["2"] == board["3"] == actual_player != " " \
+            or board["4"] == board["5"] == board["6"] == actual_player != " " \
+            or board["7"] == board["8"] == board["9"] == actual_player != " ":
+
+            print (f" Congratulations, the player {actual_player} WON!")
+            winner = True
+            game_on = False
+
+    #vítěz sloupce
+    if board["1"] == board["4"] == board["7"] == actual_player != " " \
+            or board["2"] == board["5"] == board["8"] == actual_player != " " \
+            or board["3"] == board["6"] == board["9"] == actual_player != " ":
+
+        print(f" Congratulations, the player {actual_player} WON!")
         winner = True
         game_on = False
-    if board["4"] == board["5"] == board["6"] == "X" != " ":
-        print("Congratulations, the player X WON!")
+
+    #vítěz uhlopříčky
+    if board["1"] == board["5"] == board["9"] == actual_player != " " \
+            or board["3"] == board["5"] == board["7"] == actual_player != " ":
+
+        print(f" Congratulations, the player {actual_player} WON!")
         winner = True
         game_on = False
-    if board["7"] == board["8"] == board["9"] == "X" != " ":
-        print("Congratulations, the player X WON!")
-        winner = True
-        game_on = False
-    # sloupce X
-    if board["1"] == board["4"] == board["7"] == "X" != " ":
-        print("Congratulations, the player X WON!")
-        winner = True
-        game_on = False
-    if board["2"] == board["5"] == board["8"] == "X" != " ":
-        print("Congratulations, the player X WON!")
-        winner = True
-        game_on = False
-    if board["3"] == board["6"] == board["9"] == "X" != " ":
-        print("Congratulations, the player X WON!")
-        winner = True
-        game_on = False
-    # uhlopricka X
-    if board["1"] == board["5"] == board["9"] == "X" != " ":
-        print("Congratulations, the player X WON!")
-        winner = True
-        game_on = False
-    if board["3"] == board["5"] == board["7"] == "X" != " ":
-        print("Congratulations, the player X WON!")
-        winner = True
-        game_on = False
-    # řádky O
-    if board["1"] == board["2"] == board["3"] == "O" != " ":
-        print("Congratulations, the player O WON!")
-        winner = True
-        game_on = False
-    if board["4"] == board["5"] == board["6"] == "O" != " ":
-        print("Congratulations, the player O WON!")
-        winner = True
-        game_on = False
-    if board["7"] == board["8"] == board["9"] == "O" != " ":
-        print("Congratulations, the player O WON!")
-        winner = True
-        game_on = False
-    # sloupce O
-    if board["1"] == board["4"] == board["7"] == "O" != " ":
-        print("Congratulations, the player O WON!")
-        winner = True
-        game_on = False
-    if board["2"] == board["5"] == board["8"] == "O" != " ":
-        print("Congratulations, the player O WON!")
-        winner = True
-        game_on = False
-    if board["3"] == board["6"] == board["9"] == "O" != " ":
-        print("Congratulations, the player O WON!")
-        winner = True
-        game_on = False
-    # uhlopricka X
-    if board["1"] == board["5"] == board["9"] == "O" != " ":
-        print("Congratulations, the player O WON!")
-        winner = True
-        game_on = False
-    if board["3"] == board["5"] == board["7"] == "O" != " ":
-        print("Congratulations, the player O WON!")
-        winner = True
-        game_on = False
-    # remíza
+
+    #remíza
     if board["1"] != " " and board["2"] != " " and board["3"] != " " and board["4"] != " " and board["5"] != " " \
             and ["6"] != " " and board["7"] != " " and board["8"] != " " and ["9"] != " " and winner == False:
+
         print("it's a tie, nobody wins")
         game_on = False
 
 
-play()
+if __name__ == '__main__':
+    main()
